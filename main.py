@@ -2,6 +2,8 @@ import discord
 import os
 from keep_alive import keep_alive
 
+pip freeze > requirements.txt
+
 client = discord.Client(intents=discord.Intents.default())
 
 @client.event
