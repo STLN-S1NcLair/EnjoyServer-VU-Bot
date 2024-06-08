@@ -2,13 +2,8 @@ import discord
 import os
 import pip
 from keep_alive import keep_alive
-// pip でインストール
-pip install <package>
 
-// requirements.txtを指定してパッケージをインストール
-pip install -r requirements.txt
-
-pip freeze > requirements.txt
+$ pip freeze > requirements.txt
 
 client = discord.Client(intents=discord.Intents.default())
 
