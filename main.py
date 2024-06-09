@@ -14,7 +14,7 @@ async def on_message(message):
         return
         
     if message.content.startswith('$emoji'):
-        emoji = ':thumbsup:'
+        emoji ="👍"
         await message.add_reaction(emoji)
 
 TOKEN = os.getenv("DISCORD_TOKEN")
