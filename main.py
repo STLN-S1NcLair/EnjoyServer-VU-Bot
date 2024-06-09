@@ -10,7 +10,7 @@ async def on_ready():
 
 @client.event
 async def on_message(message):
-    if (message.startswith('/emoji'))
+    if (message.startswith('/emoji')):
         await message.add_reaction(emoji)
 
 TOKEN = os.getenv("DISCORD_TOKEN")
