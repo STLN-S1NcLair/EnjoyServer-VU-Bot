@@ -15,7 +15,7 @@ async def on_message(message):
         
     if message.content.startswith('$emoji'):
         emoji ="👍"
-        await message.add_reaction(emoji)
+        await message.channel.send('Hello!')
 
 TOKEN = os.getenv("DISCORD_TOKEN")
 # Web サーバの立ち上げ
