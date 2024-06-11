@@ -2,19 +2,21 @@ import discord
 import os
 from keep_alive import keep_alive
 
-client = discord.Client(intents=discord.Intents.default())
+intents = discord.Intents.default()
+intents.message_content = True
+
+client = discord.Client(intents=intents)
 
 @client.event
 async def on_ready():
-    print('ログインしました')
+    print(f'We have logged in as {client.user}')
 
 @client.event
 async def on_message(message):
     if message.author == client.user:
         return
-        
-    if message.content.startswith('$emoji'):
-        emoji ="👍"
+
+    if message.content.startswith('$hello'):
         await message.channel.send('Hello!')
 
 TOKEN = os.getenv("DISCORD_TOKEN")
