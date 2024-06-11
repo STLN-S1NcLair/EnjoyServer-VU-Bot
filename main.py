@@ -70,6 +70,8 @@ client.run(TOKEN)"""
 
 import discord
 from discord import app_commands
+import os
+from keep_alive import keep_alive
 
 intents = discord.Intents.default()
 client = discord.Client(intents=intents)
