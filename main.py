@@ -51,7 +51,7 @@ class SampleView(discord.ui.View): # UIキットを利用するためにdiscord.
         await reply.delete(5000)
 
 @bot.command(name="observer_button", description="観戦モード ON/OFFを追加します")
-async def test(ctx):
+async def observer_button(ctx):
     view = SampleView(timeout=None)
     await ctx.send(view=view)
 
