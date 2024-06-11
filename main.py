@@ -15,6 +15,7 @@ client = discord.Client(intents=intents)
 @client.event
 async def on_ready():
     print(f'We have logged in as {client.user}')
+    await tree.sync()
 
 @client.event
 async def on_message(message):
@@ -27,6 +28,12 @@ async def on_message(message):
     if message.content.startswith('$reaction'):
         emoji ="👍"
         await message.add_reaction(emoji)
+        
+
+@tree.command(name="test",description="テストコマンドです。")
+async def test_command(interaction: discord.Interaction):
+    await interaction.response.send_message("てすと！",ephemeral=True)
+
 
 class SampleView(discord.ui.View): # UIキットを利用するためにdiscord.ui.Viewを継承する
     def __init__(self, timeout=180): # Viewにはtimeoutがあり、初期値は180(s)である
