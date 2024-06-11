@@ -1,4 +1,4 @@
-import discord
+/*import discord
 import os
 from keep_alive import keep_alive
 from discord.ext import commands
@@ -66,4 +66,4 @@ async def observer_button(ctx):
 TOKEN = os.getenv("DISCORD_TOKEN")
 # Web サーバの立ち上げ
 keep_alive()
-client.run(TOKEN)
+client.run(TOKEN)*/
