@@ -50,11 +50,11 @@ class SampleView(discord.ui.View): # UIキットを利用するためにdiscord.
             reply = await interaction.response.send_message(f"{interaction.user.mention} すでに観戦モードです！")
         await reply.delete(5000)
 
-@bot.command()
+@bot.hybrid_command()
 async def test(ctx):
     await ctx.send("test")
 
-@bot.command(name="observer_button", description="観戦モード ON/OFFを追加します")
+@bot.hybrid_command(name="observer_button", description="観戦モード ON/OFFを追加します")
 async def observer_button(ctx):
     view = SampleView(timeout=None)
     await ctx.send(view=view)
