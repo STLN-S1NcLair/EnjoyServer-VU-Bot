@@ -69,7 +69,6 @@ keep_alive()
 client.run(TOKEN)"""
 
 import os
-import dotenv
 from discord import Intents, Client, Interaction
 from discord.app_commands import CommandTree
 from keep_alive import keep_alive
