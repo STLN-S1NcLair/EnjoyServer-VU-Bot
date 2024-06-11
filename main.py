@@ -3,7 +3,7 @@ import os
 from keep_alive import keep_alive
 from discord.ext import commands
 
-bot = commands.Bot(command_prefix="?", intents=discord.Intents.all())
+bot = commands.Bot(command_prefix="/", intents=discord.Intents.all())
 
 intents = discord.Intents.default()
 intents.message_content = True
