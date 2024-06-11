@@ -32,7 +32,7 @@ class SampleView(discord.ui.View): # UIキットを利用するためにdiscord.
         
     @discord.ui.button(label="観戦モード ON", style=discord.ButtonStyle.success)
     async def observe_on(self, button: discord.ui.Button, interaction: discord.Interaction):
-        const reply;
+        reply;
         if ' //' in interaction.user.nickname:
             reply = await interaction.response.send_message(f"{interaction.user.mention} すでに観戦中です！")
         else:
@@ -42,7 +42,7 @@ class SampleView(discord.ui.View): # UIキットを利用するためにdiscord.
 
     @discord.ui.button(label="観戦モード OFF", style=discord.ButtonStyle.danger)
     async def observe_off(self, button: discord.ui.Button, interaction: discord.Interaction):
-        const reply;
+        reply;
         if ' //' in interaction.user.nickname:
             reply = await interaction.response.send_message(f"{interaction.user.mention} 観戦モードを解除しました！")
             await interaction.user.setNickname(interaction.user.nickname.split(" //")[0])
