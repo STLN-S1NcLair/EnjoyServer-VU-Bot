@@ -68,30 +68,33 @@ TOKEN = os.getenv("DISCORD_TOKEN")
 keep_alive()
 client.run(TOKEN)"""
 
-import discord
-from discord import app_commands
 import os
+from discord import Intents, Client, Interaction
+from discord.app_commands import CommandTree
+from dotenv import load_dotenv
 from keep_alive import keep_alive
+load_dotenv()
 
-intents = discord.Intents.default()
-client = discord.Client(intents=intents)
-tree = app_commands.CommandTree(client)
 
-@client.event
-async def on_ready():
-    print('ログインしました')
+class MyClient(Client):
+    def __init__(self, intents: Intents) -> None:
+        super().__init__(intents=intents)
+        self.tree = CommandTree(self)
 
-    # アクティビティを設定
-    new_activity = f"テスト"
-    await client.change_presence(activity=discord.Game(new_activity))
 
-    # スラッシュコマンドを同期
-    await tree.sync()
+    async def setup_hook(self) -> None:
+        await self.tree.sync()
 
-@tree.command(name='hello', description='Say hello to the world!')
-async def test(interaction: discord.Interaction):
-    await interaction.response.send_message('Hello, World!')
+    async def on_ready(self):
+        print(f"login: {self.user.name} [{self.user.id}]")
 
-TOKEN = os.getenv("DISCORD_TOKEN")
+
+intents = Intents.default()
+client = MyClient(intents=intents)
+
+@client.tree.command()
+async def hello(interaction: Interaction):
+    await interaction.response.send_message(f'Hello, {interaction.user.mention}')
+
 keep_alive()
-client.run(TOKEN)
+client.run(os.getenv("TOKEN"))
