@@ -72,9 +72,7 @@ import os
 import dotenv
 from discord import Intents, Client, Interaction
 from discord.app_commands import CommandTree
-from dotenv import load_dotenv
 from keep_alive import keep_alive
-load_dotenv()
 
 
 class MyClient(Client):
