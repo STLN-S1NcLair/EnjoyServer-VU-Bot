@@ -2,11 +2,13 @@ import discord
 import os
 from keep_alive import keep_alive
 from discord.ext import commands
+from discord import app_commands
 
 bot = commands.Bot(command_prefix="/", intents=discord.Intents.all())
 
 intents = discord.Intents.default()
 intents.message_content = True
+tree = app_commands.CommandTree(client)
 
 client = discord.Client(intents=intents)
 
@@ -49,10 +51,6 @@ class SampleView(discord.ui.View): # UIキットを利用するためにdiscord.
         else:
             reply = await interaction.response.send_message(f"{interaction.user.mention} すでに観戦モードです！")
         await reply.delete(5000)
-
-@bot.hybrid_command()
-async def test(ctx):
-    await ctx.send("test")
 
 @bot.hybrid_command(name="observer_button", description="観戦モード ON/OFFを追加します")
 async def observer_button(ctx):
