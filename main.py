@@ -69,37 +69,18 @@ keep_alive()
 client.run(TOKEN)"""
 
 import discord
-import asyncio
-import random
+from discord import app_commands
 from keep_alive import keep_alive
-from discord.ext import tasks
-from discord.ext import commands
-from discord_slash import SlashCommand, SlashContext
 import os
 
-# ↓元のコードは client = discord.client()
-bot = discord.Client(intents_discord.Intents.all())
+intents = discord.Intents.all()#適当に。
+client = discord.Client(intents=intents)
+tree = app_commands.CommandTree(client)
 
-slash_client = SlashCommand(bot, sync_commands=True)
-
-## 初期設定 ##
-@bot.event
+@client.event
 async def on_ready():
-    print('Logged in as')
-    print(bot.user.name)
-    print(bot.user.id)
-    print('------')
-
-# ↓元のコードは @bot.command()
-@slash_client.slash(name="luck", description="君の今日の運勢は一体何かな～？")
-# ↓元のコードは async def luck(ctx):
-async def luck(ctx: SlashContext):
-    fortune_list = ['大吉', '中吉', '吉', '小吉',
-                    '末吉', '凶', '大凶', '判断が遅い', 'SSR', 'UR']
-    fortune_length = len(fortune_list)
-
-    await ctx.send(content=
-        "今日の運勢は【" + fortune_list[random.randint(0, fortune_length - 1)] + "】だよ！")
+    print("起動完了")
+    await tree.sync()#スラッシュコマンドを同期
 
 keep_alive()
 bot.run(os.getenv("TOKEN"))
