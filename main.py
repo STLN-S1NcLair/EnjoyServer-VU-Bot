@@ -47,8 +47,7 @@ class SampleView(discord.ui.View): # UIキットを利用するためにdiscord.
         
     @discord.ui.button(label="観戦モード ON", style=discord.ButtonStyle.success)
     async def observe_on(self, interaction: discord.Interaction, button: discord.ui.Button):
-        await interaction.response.send_message(f"{interaction.user.mention} OK!")
-        """if ' //' in interaction.user.nickname:
+        if ' //' in interaction.user.nickname:
             reply = await interaction.response.send_message(f"{interaction.user.mention} すでに観戦中です！")
             await reply.delete(5000)
         else:
@@ -57,14 +56,14 @@ class SampleView(discord.ui.View): # UIキットを利用するためにdiscord.
         await reply.delete(5000)
 
     @discord.ui.button(label="観戦モード OFF", style=discord.ButtonStyle.danger)
-    async def observe_off(self, button: discord.ui.Button, interaction: discord.Interaction):
+    async def observe_off(self, interaction: discord.Interaction, button: discord.ui.Button):
         if ' //' in interaction.user.nickname:
             reply = await interaction.response.send_message(f"{interaction.user.mention} 観戦モードを解除しました！")
             await interaction.user.setNickname(interaction.user.nickname.split(" //")[0])
             await reply.delete(5000)
         else:
             reply = await interaction.response.send_message(f"{interaction.user.mention} すでに観戦モードです！")
-            await reply.delete(5000)"""
+            await reply.delete(5000)
 
 @client.tree.command(name="observer_button", description="観戦モード ON/OFFを追加します")
 async def observer_button(interaction: Interaction):
