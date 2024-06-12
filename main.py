@@ -68,7 +68,6 @@ class SampleView(discord.ui.View): # UIキットを利用するためにdiscord.
 @client.tree.command(name="observer_button", description="観戦モード ON/OFFを追加します")
 async def observer_button(interaction: Interaction):
     view = SampleView(timeout=None)
-    await interaction.response.send_message("出力中")
     await interaction.context.send(view=view)
 
 TOKEN = os.getenv("DISCORD_TOKEN")
