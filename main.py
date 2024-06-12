@@ -11,7 +11,6 @@ class MyClient(Client):
 
 intents = Intents.all()
 client = MyClient(intents=intents)
-tree = app_commands.CommandTree(client)
 
 @client.event
 async def on_ready():
