@@ -1,20 +1,26 @@
 import discord
 import os
+from discord import Intents, Client, Interaction
+from discord.app_commands import CommandTree
 from keep_alive import keep_alive
-from discord.ext import commands
-from discord import app_commands
 
-bot = commands.Bot(command_prefix="/", intents=discord.Intents.all())
+class MyClient(Client):
+    def __init__(self, intents: Intents) -> None:
+        super().__init__(intents=intents)
+        self.tree = CommandTree(self)
 
-intents = discord.Intents.default()
-intents.message_content = True
-client = discord.Client(intents=intents)
+intents = Intents.all()
+client = MyClient(intents=intents)
 tree = app_commands.CommandTree(client)
 
 @client.event
 async def on_ready():
     print(f'We have logged in as {client.user}')
     await tree.sync()
+
+@client.tree.command()
+async def hello(interaction: Interaction):
+    await interaction.response.send_message(f'Hello, {interaction.user.mention}')
 
 @client.event
 async def on_message(message):
@@ -29,7 +35,7 @@ async def on_message(message):
         await message.add_reaction(emoji)
         
 
-@tree.command(name="test",description="テストコマンドです。")
+@client.tree.command(name="test",description="テストコマンドです。")
 async def test_command(interaction: discord.Interaction):
     await interaction.response.send_message("てすと！",ephemeral=True)
 
@@ -58,7 +64,7 @@ class SampleView(discord.ui.View): # UIキットを利用するためにdiscord.
             reply = await interaction.response.send_message(f"{interaction.user.mention} すでに観戦モードです！")
         await reply.delete(5000)
 
-@bot.hybrid_command(name="observer_button", description="観戦モード ON/OFFを追加します")
+@client.tree.command(name="observer_button", description="観戦モード ON/OFFを追加します")
 async def observer_button(ctx):
     view = SampleView(timeout=None)
     await ctx.send(view=view)
@@ -68,19 +74,3 @@ TOKEN = os.getenv("DISCORD_TOKEN")
 keep_alive()
 client.run(TOKEN)
 
-"""import discord
-from discord import app_commands
-from keep_alive import keep_alive
-import os
-
-intents = discord.Intents.all()#適当に。
-client = discord.Client(intents=intents)
-tree = app_commands.CommandTree(client)
-
-@client.event
-async def on_ready():
-    print("起動完了")
-    await tree.sync()#スラッシュコマンドを同期
-
-keep_alive()
-bot.run(os.getenv("TOKEN"))"""
