@@ -38,7 +38,7 @@ async def on_message(message):
 
 @client.tree.command(name="test",description="テストコマンドです。")
 async def test_command(interaction: Interaction):
-    await interaction.response.send_message("てすと！",ephemeral=True)
+    await interaction.response.send_message("てすと！")
 
 
 class SampleView(discord.ui.View): # UIキットを利用するためにdiscord.ui.Viewを継承する
@@ -68,6 +68,7 @@ class SampleView(discord.ui.View): # UIキットを利用するためにdiscord.
 @client.tree.command(name="observer_button", description="観戦モード ON/OFFを追加します")
 async def observer_button(interaction: Interaction):
     view = SampleView(timeout=None)
+    await interaction.response.send_message("出力中")
     await interaction.response.send(view=view)
 
 TOKEN = os.getenv("DISCORD_TOKEN")
