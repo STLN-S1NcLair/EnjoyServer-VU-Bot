@@ -47,19 +47,19 @@ class SampleView(discord.ui.View): # UIキットを利用するためにdiscord.
         
     @discord.ui.button(label="観戦モード ON", style=discord.ButtonStyle.success)
     async def observe_on(self, interaction: discord.Interaction, button: discord.ui.Button):
-        if ' //' in interaction.user.nickname:
+        if ' //' in interaction.user.nick:
             reply = await interaction.response.send_message(f"{interaction.user.mention} すでに観戦中です！")
             await reply.delete(5000)
         else:
             reply = await interaction.response.send_message(f"{interaction.user.mention} 観戦モードにしました！")
-            await interaction.user.setNickname(interaction.user.nickname + " //観戦中")
+            await interaction.user.edit(nick=interaction.user.nick + " //観戦中")
             await reply.delete(5000)
 
     @discord.ui.button(label="観戦モード OFF", style=discord.ButtonStyle.danger)
     async def observe_off(self, interaction: discord.Interaction, button: discord.ui.Button):
-        if ' //' in interaction.user.nickname:
+        if ' //' in interaction.user.nick:
             reply = await interaction.response.send_message(f"{interaction.user.mention} 観戦モードを解除しました！")
-            await interaction.user.setNickname(interaction.user.nickname.split(" //")[0])
+            await interaction.user.edit(nick=interaction.user.nick.split(" //")[0])
             await reply.delete(5000)
         else:
             reply = await interaction.response.send_message(f"{interaction.user.mention} すでに観戦モードです！")
