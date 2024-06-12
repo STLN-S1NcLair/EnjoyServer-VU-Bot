@@ -68,31 +68,38 @@ TOKEN = os.getenv("DISCORD_TOKEN")
 keep_alive()
 client.run(TOKEN)"""
 
-import os
-from discord import Intents, Client, Interaction
-from discord.app_commands import CommandTree
+import discord
+import asyncio
+import random
 from keep_alive import keep_alive
+from discord.ext import tasks
+from discord.ext import commands
+from discord_slash import SlashCommand, SlashContext
+import os
 
+# ↓元のコードは client = discord.client()
+bot = discord.Client(intents_discord.Intents.all())
 
-class MyClient(Client):
-    def __init__(self, intents: Intents) -> None:
-        super().__init__(intents=intents)
-        self.tree = CommandTree(self)
+slash_client = SlashCommand(bot, sync_commands=True)
 
+## 初期設定 ##
+@bot.event
+async def on_ready():
+    print('Logged in as')
+    print(bot.user.name)
+    print(bot.user.id)
+    print('------')
 
-    async def setup_hook(self) -> None:
-        await self.tree.sync()
+# ↓元のコードは @bot.command()
+@slash_client.slash(name="luck", description="君の今日の運勢は一体何かな～？")
+# ↓元のコードは async def luck(ctx):
+async def luck(ctx: SlashContext):
+    fortune_list = ['大吉', '中吉', '吉', '小吉',
+                    '末吉', '凶', '大凶', '判断が遅い', 'SSR', 'UR']
+    fortune_length = len(fortune_list)
 
-    async def on_ready(self):
-        print(f"login: {self.user.name} [{self.user.id}]")
-
-
-intents = Intents.default()
-client = MyClient(intents=intents)
-
-@client.tree.command()
-async def hello(interaction: Interaction):
-    await interaction.response.send_message(f'Hello, {interaction.user.mention}')
+    await ctx.send(content=
+        "今日の運勢は【" + fortune_list[random.randint(0, fortune_length - 1)] + "】だよ！")
 
 keep_alive()
-client.run(os.getenv("TOKEN"))
+bot.run(os.getenv("TOKEN"))
