@@ -46,7 +46,7 @@ class SampleView(discord.ui.View): # UIキットを利用するためにdiscord.
         super().__init__(timeout=timeout)
         
     @discord.ui.button(label="観戦モード ON", style=discord.ButtonStyle.success)
-    async def observe_on(self, button: discord.ui.Button, interaction: discord.Interaction):
+    async def observe_on(self, interaction: discord.Interaction, button: discord.ui.Button):
         await interaction.response.send_message(f"{interaction.user.mention} OK!")
         """if ' //' in interaction.user.nickname:
             reply = await interaction.response.send_message(f"{interaction.user.mention} すでに観戦中です！")
