@@ -8,6 +8,9 @@ class MyClient(Client):
     def __init__(self, intents: Intents) -> None:
         super().__init__(intents=intents)
         self.tree = CommandTree(self)
+        
+    async def setup_hook(self) -> None:
+        await self.tree.sync()
 
 intents = Intents.all()
 client = MyClient(intents=intents)
@@ -15,7 +18,6 @@ client = MyClient(intents=intents)
 @client.event
 async def on_ready():
     print(f'We have logged in as {client.user}')
-    await tree.sync()
 
 @client.tree.command()
 async def hello(interaction: Interaction):
