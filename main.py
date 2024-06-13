@@ -50,20 +50,25 @@ class SampleView(discord.ui.View): # UIキットを利用するためにdiscord.
         user_nick = interaction.user.nick or interaction.user.display_name
         if ' //' in user_nick:
             await interaction.response.send_message(f"{interaction.user.mention} すでに観戦中です！", ephemeral=True)
-        elif discord.Forbidden:
-            await interaction.response.send_message("ごめんね。僕たちが持つ権限が不足しています。自分で名前変えてね！", ephemeral=True)
         else:
-            await interaction.response.send_message(f"{interaction.user.mention} 観戦モードにしました！", ephemeral=True)
-            await interaction.user.edit(nick=user_nick + " //観戦中")
+            try:
+                await interaction.user.edit(nick=user_nick + " //観戦中")
+                await interaction.response.send_message(f"{interaction.user.mention} 観戦モードにしました！", ephemeral=True)
+                button.disabled = True
+                await interaction.message.edit(view=self)
+            except discord.Forbidden:
+                await interaction.response.send_message("ごめんね。僕たちが持つ権限が不足しています。自分で名前変えてね！", ephemeral=True)
 
     @discord.ui.button(label="観戦モード OFF", style=discord.ButtonStyle.danger)
     async def observe_off(self, interaction: discord.Interaction, button: discord.ui.Button):
         user_nick = interaction.user.nick or interaction.user.display_name
         if ' //' in user_nick:
-            await interaction.response.send_message(f"{interaction.user.mention} 観戦モードを解除しました！", ephemeral=True)
-            await interaction.user.edit(nick=user_nick.split(" //")[0])
-        elif discord.Forbidden:
-            await interaction.response.send_message("ごめんね。僕たちが持つ権限が不足しています。自分で名前変えてね！", ephemeral=True)
+            try: 
+                new_nick = user_nick.split(" //")[0]
+                await interaction.user.edit(nick=new_nick)
+                await interaction.response.send_message(f"{interaction.user.mention} 観戦モードを解除しました！", ephemeral=True)
+            except discord.Forbidden:
+                await interaction.response.send_message("ごめんね。僕たちが持つ権限が不足しています。自分で名前変えてね！", ephemeral=True)
         else:
             await interaction.response.send_message(f"{interaction.user.mention} 観戦モードではありません！", ephemeral=True)
 
