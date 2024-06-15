@@ -41,8 +41,8 @@ async def test_command(interaction: Interaction):
     await interaction.response.send_message("てすと！")
 
 
-class SampleView(discord.ui.View): # UIキットを利用するためにdiscord.ui.Viewを継承する
-    def __init__(self, timeout=180): # Viewにはtimeoutがあり、初期値は180(s)である
+class SampleView(discord.ui.View): # 観戦ボタンのview
+    def __init__(self, timeout=180):
         super().__init__(timeout=timeout)
         
     @discord.ui.button(label="観戦モード ON", style=discord.ButtonStyle.success)
@@ -54,8 +54,6 @@ class SampleView(discord.ui.View): # UIキットを利用するためにdiscord.
             try:
                 await interaction.user.edit(nick=user_nick + " //観戦中")
                 await interaction.response.send_message(f"{interaction.user.mention} 観戦モードにしました！", ephemeral=True)
-                button.disabled = True
-                await interaction.message.edit(view=self)
             except discord.Forbidden:
                 await interaction.response.send_message(f"{interaction.user.mention} ごめんね。僕たちが持つ権限が不足しています。自分で名前変えてね！", ephemeral=True)
 
