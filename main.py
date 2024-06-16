@@ -47,7 +47,7 @@ class SampleView(discord.ui.View): # 観戦ボタンのview
         
     @discord.ui.button(label="観戦モード ON", style=discord.ButtonStyle.success)
     async def observe_on(self, interaction: discord.Interaction, button: discord.ui.Button):
-        user_nick = interaction.user.nick or interaction.user.display_name
+        user_nick = interaction.user.nick or interaction.user.global_name
         if ' //' in user_nick:
             await interaction.response.send_message(f"{interaction.user.mention} すでに観戦中です！", ephemeral=True)
         else:
@@ -59,7 +59,7 @@ class SampleView(discord.ui.View): # 観戦ボタンのview
 
     @discord.ui.button(label="観戦モード OFF", style=discord.ButtonStyle.danger)
     async def observe_off(self, interaction: discord.Interaction, button: discord.ui.Button):
-        user_nick = interaction.user.nick or interaction.user.display_name
+        user_nick = interaction.user.nick or interaction.user.global_name
         if ' //' in user_nick:
             try: 
                 new_nick = user_nick.split(" //")[0]
@@ -75,7 +75,7 @@ async def observer_button(interaction: Interaction):
     view = SampleView(timeout=None)
     await interaction.response.send_message(content="観戦モード設定", view=view)
 
-TOKEN = os.getenv("DISCORD_TOKEN")
+TOKEN = os.getenv("TOKEN")
 # Web サーバの立ち上げ
 keep_alive()
 client.run(TOKEN)
