@@ -75,7 +75,7 @@ async def observer_button(interaction: Interaction):
     view = SampleView(timeout=None)
     await interaction.response.send_message(content="観戦モード設定", view=view)
 
-TOKEN = os.getenv("TOKEN")
+TOKEN = os.getenv("DISCORD_TOKEN")
 # Web サーバの立ち上げ
 keep_alive()
 client.run(TOKEN)
