@@ -35,12 +35,21 @@ async def on_message(message):
         emoji ="👍"
         await message.add_reaction(emoji)
         
+# 募集テンプレート　コマンド
+rankEmoji = {"アイアン": ":iron:", "ブロンズ": ":bronze:", "シルバー": ":silver:", "ゴールド": ":gold:", "プラチナ": ":platinum:",
+             "ダイヤモンド": ":diamond:", "アセンダント": ":ascendant:", "イモータル": ":immortal:", "レディアント": ":radiant:"}
+@client.tree.command(name="rank_recruit",description="ランク募集用テンプレートを作ります。")
+async def rank_recruit(interaction: Interaction, lowestRole: discord.Role, highestRole: discord.Role, amount: int):
+    if (lowestRole.name in rankEmoji) and (highestRole.name in rankEmoji):
+        lowestRankEmoji = rankEmoji[lowestRank.name]
+        highestRankEmoji = rankEmoji[highestRank.name]
+        await interaction.response.send_message(f"{interaction.user.mention} からのコンペ募集が来ました！ \n ランク: {lowestRank.name}{lowesrRankEmoji} - {highestRank.name}{highestRankEmoji} \n 人数: @{amount}")
+    else:
+        await interaction.response.send_message(f"{interaction.user.mention} エラーが発生しました。もう一度試すか、ランクのロールを指定してください。", ephemeral=True)
 
-@client.tree.command(name="test",description="テストコマンドです。")
-async def test_command(interaction: Interaction):
-    await interaction.response.send_message("てすと！")
 
 
+# 観戦モード　コマンド
 class SampleView(discord.ui.View): # 観戦ボタンのview
     def __init__(self, timeout=180):
         super().__init__(timeout=timeout)
