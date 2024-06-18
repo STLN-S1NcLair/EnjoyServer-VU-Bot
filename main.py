@@ -36,8 +36,8 @@ async def on_message(message):
         await message.add_reaction(emoji)
         
 # 募集テンプレート　コマンド
-rankEmoji = {"アイアン": ":iron:", "ブロンズ": ":bronze:", "シルバー": ":silver:", "ゴールド": ":gold:", "プラチナ": ":platinum:",
-             "ダイヤモンド": ":diamond:", "アセンダント": ":ascendant:", "イモータル": ":immortal:", "レディアント": ":radiant:"}
+rankEmoji = {"アイアン": "<:iron:1250361544026492939>", "ブロンズ": "<:bronze:1250361580139319389>", "シルバー": "<:silver:1250361676838998096>", "ゴールド": "<:gold:1250362067249135686>",
+             "プラチナ": "<:platinum:1250361797362323476>","ダイヤモンド": "<:diamond:1250362432719945842>", "アセンダント": "<:ascendant:1250362222719275049>", "イモータル": "<:immortal:1250362613024555018>", "レディアント": "<:radiant:1250362739822428220>"}
 @client.tree.command(name="rank_recruit",description="ランク募集用テンプレートを作ります。")
 async def rank_recruit(interaction: Interaction, lowest_role: discord.Role, highest_role: discord.Role, amount: int):
     if (lowest_role.name in rankEmoji) and (highest_role.name in rankEmoji):
