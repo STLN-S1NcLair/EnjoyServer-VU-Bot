@@ -43,7 +43,7 @@ async def rank_recruit(interaction: Interaction, lowestRole: discord.Role, highe
     if (lowestRole.name in rankEmoji) and (highestRole.name in rankEmoji):
         lowestRankEmoji = rankEmoji[lowestRank.name]
         highestRankEmoji = rankEmoji[highestRank.name]
-        await interaction.response.send_message(f"{interaction.user.mention} からのコンペ募集が来ました！ \n ランク: {lowestRank.name}{lowesrRankEmoji} - {highestRank.name}{highestRankEmoji} \n 人数: @{amount}")
+        await interaction.response.send_message(f"{interaction.user.mention} からのコンペ募集が来ました！ \n ランク: {str(lowestRank)}{lowesrRankEmoji} - {str(highestRank)}{highestRankEmoji} \n 人数: @{amount}")
     else:
         await interaction.response.send_message(f"{interaction.user.mention} エラーが発生しました。もう一度試すか、ランクのロールを指定してください。", ephemeral=True)
 
