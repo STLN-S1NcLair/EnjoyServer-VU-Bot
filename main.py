@@ -40,9 +40,9 @@ rankEmoji = {"アイアン": ":iron:", "ブロンズ": ":bronze:", "シルバー
              "ダイヤモンド": ":diamond:", "アセンダント": ":ascendant:", "イモータル": ":immortal:", "レディアント": ":radiant:"}
 @client.tree.command(name="rank_recruit",description="ランク募集用テンプレートを作ります。")
 async def rank_recruit(interaction: Interaction, lowestRole: discord.Role, highestRole: discord.Role, amount: int):
-    if (lowestRole.name in rankEmoji) and (highestRole.name in rankEmoji):
-        lowestRankEmoji = rankEmoji[lowestRank.name]
-        highestRankEmoji = rankEmoji[highestRank.name]
+    if (str(lowestRank) in rankEmoji) and (str(highestRole) in rankEmoji):
+        lowestRankEmoji = rankEmoji[str(lowestRank)]
+        highestRankEmoji = rankEmoji[str(highestRole)]
         await interaction.response.send_message(f"{interaction.user.mention} からのコンペ募集が来ました！ \n ランク: {str(lowestRank)}{lowesrRankEmoji} - {str(highestRank)}{highestRankEmoji} \n 人数: @{amount}")
     else:
         await interaction.response.send_message(f"{interaction.user.mention} エラーが発生しました。もう一度試すか、ランクのロールを指定してください。", ephemeral=True)
