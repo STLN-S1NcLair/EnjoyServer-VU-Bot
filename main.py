@@ -62,7 +62,7 @@ class Questionnaire(Modal):
 
     @discord.ui.button(label="認証", style=discord.ButtonStyle.primary, custom_id="pg:verify")
     async def ok(self, interaction: discord.Interaction, button: discord.ui.Button):
-        await self.disabled = True
+        self.disabled = True
 
 @client.tree.command(name="questionnaire")
 async def app_questionnaire(interaction: Interaction):
