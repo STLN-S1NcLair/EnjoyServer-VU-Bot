@@ -49,7 +49,7 @@ async def rank_recruit(interaction: Interaction, lowest_role: discord.Role, high
 
         
 # Modalテスト　コマンド
-class Questionnaire(Modal):
+class Questionnaire(discord.ui.Modal):
     def __init__(self, title: str) -> None:
         super().__init__(title=title)
         self.answer = TextInput(label="favorite point", style=TextStyle.long)
