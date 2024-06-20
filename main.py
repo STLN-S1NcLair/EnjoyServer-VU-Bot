@@ -47,6 +47,22 @@ async def rank_recruit(interaction: Interaction, lowest_role: discord.Role, high
     else:
         await interaction.response.send_message(f"{interaction.user.mention} エラーが発生しました。もう一度試すか、ランクのロールを指定してください。", ephemeral=True)
 
+        
+# Modalテスト　コマンド
+class Questionnaire(Modal):
+    def __init__(self, title: str) -> None:
+        super().__init__(title=title)
+        self.answer = TextInput(label="favorite point", style=TextStyle.long)
+        self.add_item(self.answer)
+
+    async def on_submit(self, interaction: Interaction) -> None:
+        await interaction.response.send_message("thanks!")
+        await interaction.followup.send(f"your favarite point is {self.answer.value}", ephemeral=True)
+
+@client.tree.command(name="questionnaire")
+async def app_questionnaire(interaction: Interaction):
+    modal = Questionnaire("application questionnaire")
+    await interaction.response.send_modal(modal)
 
 
 # 観戦モード　コマンド
