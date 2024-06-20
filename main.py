@@ -50,11 +50,20 @@ async def rank_recruit(interaction: Interaction, lowest_role: discord.Role, high
 
         
 # Modalテスト　コマンド
+class QuestionView(discord.ui.View): # 観戦ボタンのview
+    def __init__(self, timeout=180):
+        super().__init__(timeout=timeout)
+
+    @discord.ui.button(label="観戦モード ON", style=discord.ButtonStyle.success)
+    async def observe_on(self, interaction: discord.Interaction, button: discord.ui.Button):
+        self.disabled = true
+        
 class Questionnaire(Modal):
     def __init__(self, title: str) -> None:
         super().__init__(title=title)
         self.answer = TextInput(label="favorite point", style=TextStyle.long)
         self.add_item(self.answer)
+        self.add_item(QuestionView)
 
     async def on_submit(self, interaction: Interaction) -> None:
         await interaction.response.send_message("thanks!")
