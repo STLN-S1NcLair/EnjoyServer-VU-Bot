@@ -50,21 +50,19 @@ async def rank_recruit(interaction: Interaction, lowest_role: discord.Role, high
 
         
 # Modalテスト　コマンド
-class QuestionView(discord.ui.Button):
-    @discord.ui.button(label="観戦モード ON", style=discord.ButtonStyle.success)
-    async def observe_on(self, interaction: discord.Interaction, button: discord.ui.Button):
-        self.disabled = true
-        
 class Questionnaire(Modal):
     def __init__(self, title: str) -> None:
         super().__init__(title=title)
         self.answer = TextInput(label="favorite point", style=TextStyle.long)
         self.add_item(self.answer)
-        self.add_item(QuestionView)
 
     async def on_submit(self, interaction: Interaction) -> None:
         await interaction.response.send_message("thanks!")
         await interaction.followup.send(f"your favarite point is {self.answer.value}", ephemeral=True)
+
+    @discord.ui.button(label="認証", style=discord.ButtonStyle.primary, custom_id="pg:verify")
+    async def ok(self, interaction: discord.Interaction, button: discord.ui.Button):
+        await self.disabled = true
 
 @client.tree.command(name="questionnaire")
 async def app_questionnaire(interaction: Interaction):
