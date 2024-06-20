@@ -50,10 +50,7 @@ async def rank_recruit(interaction: Interaction, lowest_role: discord.Role, high
 
         
 # Modalテスト　コマンド
-class QuestionView(discord.ui.View): # 観戦ボタンのview
-    def __init__(self, timeout=180):
-        super().__init__(timeout=timeout)
-
+class QuestionView(discord.ui.Button):
     @discord.ui.button(label="観戦モード ON", style=discord.ButtonStyle.success)
     async def observe_on(self, interaction: discord.Interaction, button: discord.ui.Button):
         self.disabled = true
