@@ -3,6 +3,7 @@ import os
 from discord import Intents, Client, Interaction
 from discord.app_commands import CommandTree
 from keep_alive import keep_alive
+from discord.ui import TextInput, View, Modal
 
 class MyClient(Client):
     def __init__(self, intents: Intents) -> None:
@@ -49,7 +50,7 @@ async def rank_recruit(interaction: Interaction, lowest_role: discord.Role, high
 
         
 # Modalテスト　コマンド
-class Questionnaire(discord.ui.Modal):
+class Questionnaire(Modal):
     def __init__(self, title: str) -> None:
         super().__init__(title=title)
         self.answer = TextInput(label="favorite point", style=TextStyle.long)
