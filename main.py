@@ -1,6 +1,6 @@
 import discord
 import os
-from discord import Intents, Client, Interaction
+from discord import Intents, Client, Interaction, TextStyle
 from discord.app_commands import CommandTree
 from keep_alive import keep_alive
 from discord.ui import TextInput, View, Modal
