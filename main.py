@@ -77,12 +77,7 @@ class SelfIntroduction(Modal):
         await interaction.response.send_message("thanks!")
         await interaction.followup.send(f"your favarite point is {self.answer.value}", ephemeral=True)
         channel = Client.get_channel("<#1009817546565877800>")
-        await channel.send_message(f"@{Interaction.user.mention} 
-        \n名前: {self.Name.value}
-        \n性別: {self.Gender.value}
-        \n年齢: {self.Age.value}
-        \nランク: {self.Rank.value}
-        \nひとこと: {self.Answer.value}")
+        await channel.send_message(f"{Interaction.user.mention} \n名前: {self.Name.value}\n性別: {self.Gender.value}\n年齢: {self.Age.value}\nランク: {self.Rank.value}\nひとこと: {self.Answer.value}")
         
 
 @client.tree.command(name="self_introduction_template", description="自己紹介テンプレートコマンド")
