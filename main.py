@@ -50,24 +50,46 @@ async def rank_recruit(interaction: Interaction, lowest_role: discord.Role, high
 
         
 # Modalテスト　コマンド
-class Questionnaire(Modal):
+class SelfIntroductionView(discord.ui.View):
+    def __init__(self, timeout=180):
+        super().__init__(timeout=timeout)
+        
+    @discord.ui.button(label="自己紹介テンプレートを作成", style=discord.ButtonStyle.success)
+    async def create(self, interaction: discord.Interaction, button: discord.ui.Button):
+        modal = SelfIntroduction("application introduction")
+        await interaction.response.send_modal(modal)
+
+class SelfIntroduction(Modal):
     def __init__(self, title: str) -> None:
         super().__init__(title=title)
-        self.answer = TextInput(label="favorite point", style=TextStyle.long)
-        self.add_item(self.answer)
+        self.Name = TextInput(label="名前", style=TextStyle.long)
+        self.Gender = TextInput(label="性別", style=TextStyle.long)
+        self.Age = TextInput(label="年齢", style=TextStyle.long)
+        self.Rank = TextInput(label="ランク", style=TextStyle.long)
+        self.Answer = TextInput(label="ひとこと", style=TextStyle.long)
+        self.add_item(self.Name)
+        self.add_item(self.Gender)
+        self.add_item(self.Age)
+        self.add_item(self.Rank)
+        self.add_item(self.Answer)
 
     async def on_submit(self, interaction: Interaction) -> None:
         await interaction.response.send_message("thanks!")
         await interaction.followup.send(f"your favarite point is {self.answer.value}", ephemeral=True)
+        channel = Client.get_channel("<#1009817546565877800>")
+        await channel.send_message(f"@{Interaction.user.mention} 
+        \n名前: {self.Name.value}
+        \n性別: {self.Gender.value}
+        \n年齢: {self.Age.value}
+        \nランク: {self.Rank.value}
+        \nひとこと: {self.Answer.value}")
+        
 
-    @discord.ui.button(label="認証", style=discord.ButtonStyle.primary, custom_id="pg:verify")
-    async def ok(self, interaction: discord.Interaction, button: discord.ui.Button):
-        self.disabled = True
+@client.tree.command(name="self_introduction_template", description="自己紹介テンプレートコマンド")
+async def self_introduction(interaction: Interaction):
+    view = SampleView(timeout=None)
+    await interaction.response.send_message(content="観戦モード設定", view=view)
 
-@client.tree.command(name="questionnaire")
-async def app_questionnaire(interaction: Interaction):
-    modal = Questionnaire("application questionnaire")
-    await interaction.response.send_modal(modal)
 
 
 # 観戦モード　コマンド
