@@ -74,9 +74,7 @@ class SelfIntroduction(Modal):
         self.add_item(self.Answer)
 
     async def on_submit(self, interaction: Interaction) -> None:
-        await interaction.response.send_message("thanks!")
-        await interaction.followup.send(f"your favarite point is {self.answer.value}", ephemeral=True)
-        channel = Client.get_channel("<#1009817546565877800>")
+        channel = Client.get_channel(1009817546565877800)
         await channel.send_message(f"{Interaction.user.mention} \n名前: {self.Name.value}\n性別: {self.Gender.value}\n年齢: {self.Age.value}\nランク: {self.Rank.value}\nひとこと: {self.Answer.value}")
         
 
