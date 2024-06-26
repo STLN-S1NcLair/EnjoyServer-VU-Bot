@@ -82,8 +82,8 @@ class SelfIntroduction(Modal):
 
 @client.tree.command(name="self_introduction_template", description="自己紹介テンプレートコマンド")
 async def self_introduction(interaction: Interaction):
-    view = SampleView(timeout=None)
-    await interaction.response.send_message(content="観戦モード設定", view=view)
+    view = SelfIntroductionView(timeout=None)
+    await interaction.response.send_message(content="自己紹介ボタン", view=view)
 
 
 
